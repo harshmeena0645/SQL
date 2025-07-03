@@ -1,0 +1,186 @@
+✅ Phase 3 – Hard SQL 
+
+Topics covered:
+✔ Window Functions (RANK(), DENSE_RANK(), ROW_NUMBER())
+✔ Common Table Expressions (CTE)
+✔ CASE statements
+✔ Nested Subqueries
+✔ Correlated Subqueries
+✔ EXISTS
+✔ LEAD/LAG
+✔ Real-world Scenarios
+
+
+📘 Topic 1: RANK(), DENSE_RANK(), ROW_NUMBER()
+Explanation:
+Window functions are used to assign rankings or order within a partition.
+
+🧩 Questions & Answers:
+Q1.1: Assign a rank to each employee based on descending salary.
+Answer:
+SELECT name, salary, RANK() OVER (ORDER BY salary DESC) AS rank
+FROM employees;
+Q1.2: Assign row numbers to each order in the orders table sorted by order_date.
+Answer:
+SELECT order_id, order_date, ROW_NUMBER() OVER (ORDER BY order_date) AS row_num
+FROM orders;
+
+
+📘 Topic 2: CTE (Common Table Expression)
+Explanation:
+CTEs are temporary named result sets that simplify complex queries.
+
+🧩 Questions & Answers:
+Q2.1: Using a CTE, find employees earning above average salary.
+Answer:
+WITH avg_salary_cte AS (
+  SELECT AVG(salary) AS avg_salary FROM employees
+)
+SELECT * FROM employees
+WHERE salary > (SELECT avg_salary FROM avg_salary_cte);
+
+Q2.2: Using CTE, get top 3 highest-paid employees.
+Answer:
+WITH ranked_emps AS (
+  SELECT name, salary, RANK() OVER (ORDER BY salary DESC) AS rnk
+  FROM employees
+)
+SELECT * FROM ranked_emps WHERE rnk <= 3;
+
+
+📘 Topic 3: CASE Statement
+Explanation:
+The CASE statement is like if-else in SQL.
+
+🧩 Questions & Answers:
+Q3.1: Label employees as 'High', 'Medium', or 'Low' based on salary:
+50000 → High
+30000–50000 → Medium
+<30000 → Low
+Answer:
+SELECT name, salary,
+  CASE
+    WHEN salary > 50000 THEN 'High'
+    WHEN salary BETWEEN 30000 AND 50000 THEN 'Medium'
+    ELSE 'Low'
+  END AS salary_level
+FROM employees;
+
+Q3.2: Show product status as ‘Available’ or ‘Out of Stock’ based on quantity.
+Answer:
+SELECT name, quantity,
+  CASE
+    WHEN quantity > 0 THEN 'Available'
+    ELSE 'Out of Stock'
+  END AS status
+FROM products;
+
+
+📘 Topic 4: Correlated Subqueries
+Explanation:
+A correlated subquery depends on values from the outer query.
+
+🧩 Questions & Answers:
+Q4.1: Find employees who earn more than the average salary of their department.
+Answer:
+SELECT e1.name, e1.department, e1.salary
+FROM employees e1
+WHERE e1.salary > (
+  SELECT AVG(e2.salary)
+  FROM employees e2
+  WHERE e2.department = e1.department
+);
+
+Q4.2: Show students who scored the highest marks in their class.
+Answer:
+SELECT s1.name, s1.class, s1.marks
+FROM students s1
+WHERE s1.marks = (
+  SELECT MAX(s2.marks)
+  FROM students s2
+  WHERE s2.class = s1.class
+);
+
+
+📘 Topic 5: LEAD() and LAG()
+Explanation:
+LEAD() gets the next row’s value.
+LAG() gets the previous row’s value.
+Useful for comparing rows.
+
+🧩 Questions & Answers:
+Q11.1: Show each employee's name and the salary of the person who joined after them (based on joining_date).
+Answer:
+SELECT name, salary,
+       LEAD(salary) OVER (ORDER BY joining_date) AS next_joined_salary
+FROM employees;
+
+Q11.2: List orders and the amount of the previous order for each customer.
+Answer:
+SELECT customer_id, order_id, amount,
+       LAG(amount) OVER (PARTITION BY customer_id ORDER BY order_date) AS previous_order_amount
+FROM orders;
+
+
+📘 Topic 6: EXISTS Operator
+Explanation:
+EXISTS checks if a subquery returns any result. Used for faster filtering than IN.
+
+🧩 Questions & Answers:
+Q12.1: Find customers who have placed at least one order.
+Answer:
+SELECT * FROM customers c
+WHERE EXISTS (
+  SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id
+);
+
+Q12.2: Get students who are enrolled in any course.
+Answer:
+SELECT * FROM students s
+WHERE EXISTS (
+  SELECT 1 FROM enrollments e WHERE e.student_id = s.student_id
+);
+
+
+📘 Topic 7: Subquery in FROM Clause
+Explanation:
+We can run a subquery in the FROM clause and treat it like a temporary table.
+
+🧩 Questions & Answers:
+Q13.1: From a list of products, show only those whose price is above the overall average, using a subquery in FROM.
+Answer:
+SELECT * FROM (
+  SELECT name, price, AVG(price) OVER () AS avg_price
+  FROM products
+) AS sub
+WHERE price > avg_price;
+
+Q13.2: Get departments and their employee count, only showing those with count > 3, using subquery in FROM.
+Answer:
+SELECT * FROM (
+  SELECT department, COUNT(*) AS emp_count
+  FROM employees
+  GROUP BY department
+) AS dept_stats
+WHERE emp_count > 3;
+
+
+📘 Topic 8: Real-world Business Logic
+
+🧩 Questions & Answers:
+Q14.1: Get top 2 highest-paid employees in each department.
+Answer:
+SELECT name, department, salary
+FROM (
+  SELECT name, department, salary,
+         RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rnk
+  FROM employees
+) AS ranked
+WHERE rnk <= 2;
+
+Q14.2: Show customers who placed more than 3 orders.
+Answer:
+SELECT customer_id, COUNT(*) AS order_count
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) > 3;
