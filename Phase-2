@@ -1,12 +1,13 @@
 ✅ Phase 2 – Moderate Level SQL
 
-✅ Phase 2 Summary – Topics You Mastered:
-GROUP BY, HAVING
-INNER JOIN, LEFT JOIN
-Aggregate functions
-BETWEEN, IN, IS NULL
-Subqueries
-String functions
+Topics covered:
+✔ GROUP BY, HAVING
+✔ INNER JOIN, LEFT JOIN
+✔ Aggregate functions
+✔ BETWEEN, IN, IS NULL
+✔ Subqueries
+✔ String functions
+
 
 📘 Topic 1: Aggregate Functions
 Explanation:
