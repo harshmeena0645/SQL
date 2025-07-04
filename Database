@@ -1,0 +1,85 @@
+Database
+
+1.	Create databases - Create database s;
+a.	Show all databases- Show databases;
+b.	Use database-  Use s;
+c.	Delete databases- CREATE DATABASE n;                          
+RENAME TABLE s.s1 TO n.n1;                                                        
+DROP database if exists s;
+
+2.	Create table- 
+CREATE TABLE s1 (id INT PRIMARY KEY,age INT NOT NULL DEFAULT 18,name VARCHAR(10) DEFAULT 'modi',dob DATETIME DEFAULT CURRENT_TIMESTAMP, yn BOOLEAN DEFAULT 0,rating FLOAT DEFAULT 9.9);
+a.	Show all table- Show tables;
+b.	Insert data- Insert into s1(id,age,name,dob,yn,rating) values(1,12,’h’,’2004-03-03’,1,8.9),(),()
+c.	Delete table- Drop table if exists s1;
+d.	Rename table- RENAME TABLE s1 TO s2; // ALTER TABLE s1 RENAME TO s2;
+e.	Rename Column- ALTER TABLE s1 CHANGE COLUMN salary sal int;
+f.	Get Table Structure- desc s1; // DESCRIBE s1;
+g.	Count Row- SELECT COUNT(*) AS total_rows FROM a5;
+
+3.	Operations- 
+a.	Delete one row- DELETE FROM s1 WHERE id=5;
+b.	Update value- UPDATE s1 SET name = ‘c’, age=8 WHERE id=0;
+c.	Add Column- ALTER TABLE s1 add COLUMN id int after age;
+d.	Drop Column- ALTER TABLE s1 DROP COLUMN salary;
+e.	Remove all data- TRUNCATE TABLE s1; // DELETE FROM a5;
+f.	Conditional Update- UPDATE s1 SET yn=TRUE WHERE age > 20;
+g.	Copy Table- CREATE TABLE s1copy AS select * from s1;
+h.	Top N row- select * from s1 limit 5;
+i.	Duplicate row- select name, COUNT(*) from s1 GROUP BY name HAVING COUNT(*) > 1;
+j.	Find NULL values- SELECT * FROM s1 WHERE name IS NULL;
+k.	Row Matching Pattern- 
+SELECT * FROM a5 WHERE name LIKE 'A%';       //
+SELECT * FROM a5 WHERE name LIKE '_A%';
+l.	Add Unique Constraint- ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (name);
+
+
+
+
+
+SQL Question
+
+1. Write a solution to find the ids of products that are both low fat and recyclable. 
+select product_id from Products where low_fats='Y' && recyclable='Y'
+
+2. Find the names of the customer that are not referred by the customer with id = 2. 
+select name from Customer where referee_id is null OR referee_id <> 2
+
+3. find the name, population, and area of the big countries.
+SELECT name,population,area FROM World WHERE area >= 3000000 OR population >= 25000000
+
+4. find all the authors that viewed at least one of their own articles.
+SELECT distinct author_id AS id FROM Views WHERE author_id = viewer_id Order by id
+
+5. find the IDs of the invalid tweets. The tweet is invalid if the number of characters used in the content of the tweet is strictly greater than 15.
+select tweet_id from Tweets where length(content)>15
+
+6. show the unique ID of each user, If a user does not have a unique ID replace just show null.
+select unique_id,name from Employees left Join EmployeeUNI  on Employees.id =  EmployeeUNI.id
+
+7. report the product_name, year, and price for each sale_id in the Sales table.
+select product_name,year,price from Sales left Join Product on Sales.product_id = Product.product_id
+
+8. report the name and bonus amount of each employee with a bonus less than 1000. 
+SELECT Employee.name, Bonus.bonus  FROM Employee  LEFT JOIN Bonus ON Employee.empID = Bonus.empID 
+WHERE Bonus.bonus < 1000 OR Bonus.bonus IS NULL;
+
+9. reports the average experience years of all the employees for each project, rounded to 2 digits.
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project p JOIN Employee e 
+ON p.employee_id = e.employee_id GROUP BY p.project_id;
+
+10. calculate the number of unique subjects each teacher teaches in the university.
+Select teacher_id , Count(Distinct subject_id) as cnt from Teacher Group BY teacher_id
+
+11.  find the daily active user count for a period of 30 days ending 2019-07-27 inclusively. A user was active on someday if they made at least one activity on that day.
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users
+FROM Activity WhERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'GROUP BY activity_date;
+
+12.  select the product id, year, quantity, and price for the first year of every product sold.
+SELECT Sales.product_id,  FirstYearSales.first_year,  Sales.quantity,     Sales.price
+FROM Sales INNER JOIN 
+(SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id) AS FirstYearSales ON   Sales.product_id = FirstYearSales.product_id AND Sales.year = FirstYearSales.first_year;
+
+ 13. the movies with an odd-numbered ID and a description that is not "boring".
+SELECT id, movie, description, rating FROM Cinema WHERE (id % 2) != 0 AND description != 'boring' ORDER BY rating DESC;
+
