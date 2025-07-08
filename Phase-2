@@ -1,23 +1,23 @@
 ✅ Phase 2 – Moderate Level SQL
 
 Topics covered:
+✔ Aggregate functions
 ✔ GROUP BY, HAVING
 ✔ INNER JOIN, LEFT JOIN
-✔ Aggregate functions
 ✔ BETWEEN, IN, IS NULL
 ✔ Subqueries
 ✔ String functions
 
 
 📘 Topic 1: Aggregate Functions
-Explanation:
+
 These functions work on a group of rows:
 COUNT() – total number of rows
 SUM() – sum of a column
 AVG() – average
 MAX(), MIN() – maximum and minimum
 
-🧩 Questions & Answers:
+🧩
 Q1.1: Find the total number of students in the students table.
 Answer:
 SELECT COUNT(*) AS total_students FROM students;
@@ -28,10 +28,10 @@ SELECT AVG(salary) AS average_salary FROM employees;
 
 
 📘 Topic 2: GROUP BY Clause
-Explanation:
+
 GROUP BY groups rows that have the same values into summary rows.
 
-🧩 Questions & Answers:
+🧩
 Q2.1: Get the number of employees in each department.
 Answer:
 SELECT department, COUNT(*) AS total_employees
@@ -46,10 +46,10 @@ GROUP BY salesman_id;
 
 
 📘 Topic 3: HAVING Clause
-Explanation:
+
 HAVING is used to filter groups (used after GROUP BY), similar to WHERE for rows.
 
-🧩 Questions & Answers:
+🧩
 Q3.1: Show departments that have more than 5 employees.
 Answer:
 SELECT department, COUNT(*) AS emp_count
@@ -64,9 +64,26 @@ FROM sales
 GROUP BY product_id
 HAVING SUM(sale_amount) > 10000;
 
+🔹 WHERE	                     🔸 HAVING
+
+Used to filter rows before grouping or aggregation
+Used to filter groups after aggregation
+
+Cannot be used with aggregate functions like SUM()	
+Can be used with aggregate functions like COUNT(), AVG()
+
+Comes before GROUP BY in the SQL query	
+Comes after GROUP BY in the SQL query
+
+Works on individual records 
+Works on aggregated/grouped data
+
+Example: WHERE salary > 50000	
+Example: HAVING COUNT(*) > 3
+
 
 📘 Topic 4: INNER JOIN
-Explanation:
+
 INNER JOIN returns records with matching values in both tables.
 
 🧩 Questions & Answers:
