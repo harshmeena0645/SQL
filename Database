@@ -1,14 +1,13 @@
 Database
 
-1.	Create databases - Create database s;
-a.	Show all databases- Show databases;
-b.	Use database-  Use s;
-c.	Delete databases- CREATE DATABASE n;                          
-RENAME TABLE s.s1 TO n.n1;                                                        
-DROP database if exists s;
+1. Create database s;
+a. Show databases;
+b.	Use database- Use s;
+c.	Rename databases- CREATE DATABASE n;                          
+                 RENAME TABLE s.s1 TO n.n1;                                                        
+d. DROP database if exists s;
 
-2.	Create table- 
-CREATE TABLE s1 (id INT PRIMARY KEY,age INT NOT NULL DEFAULT 18,name VARCHAR(10) DEFAULT 'modi',dob DATETIME DEFAULT CURRENT_TIMESTAMP, yn BOOLEAN DEFAULT 0,rating FLOAT DEFAULT 9.9);
+2. CREATE TABLE s1 (id INT PRIMARY KEY,age INT NOT NULL DEFAULT 18,name VARCHAR(10) DEFAULT 'modi',dob DATETIME DEFAULT CURRENT_TIMESTAMP, yn BOOLEAN DEFAULT 0,rating FLOAT DEFAULT 9.9);
 a.	Show all table- Show tables;
 b.	Insert data- Insert into s1(id,age,name,dob,yn,rating) values(1,12,’h’,’2004-03-03’,1,8.9),(),()
 c.	Delete table- Drop table if exists s1;
