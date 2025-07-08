@@ -11,11 +11,12 @@ Topics covered:
 ✔ Arithmetic
 ✔ AS (Alias)
 
+
 📘 Topic 1: SELECT and FROM
-Syntax:
+
 SELECT column1, column2 FROM table_name;
 
-🧩 Questions & Answers:
+🧩
 Q1.1: Retrieve all columns from the students table.
 Answer:
 SELECT * FROM students;
@@ -30,10 +31,10 @@ SELECT first_name FROM employees;
 
 
 📘 Topic 2: WHERE Clause
-Syntax:
+
 SELECT * FROM table_name WHERE condition;
 
-🧩 Questions & Answers:
+🧩
 Q2.1: Find all students whose age is more than 18.
 Answer:
 SELECT * FROM students WHERE age > 18;
@@ -42,13 +43,9 @@ Q2.2: Get employees from the employees table whose department is 'Sales'.
 Answer:
 SELECT * FROM employees WHERE department = 'Sales';
 
-Q2.3: Select books from the library table where price < 500.
-Answer:
-SELECT * FROM library WHERE price < 500;
-
 
 📘 Topic 3: ORDER BY
-Syntax:
+
 SELECT * FROM table_name ORDER BY column_name ASC|DESC;
 
 🧩 Questions & Answers:
@@ -60,17 +57,13 @@ Q3.2: Show all products from the products table ordered by price in descending o
 Answer:
 SELECT * FROM products ORDER BY price DESC;
 
-Q3.3: Get customer names ordered alphabetically from the customers table.
-Answer:
-SELECT name FROM customers ORDER BY name ASC;
-
 
 📘 Topic 4: LIMIT and DISTINCT
-Syntax:
+
 SELECT DISTINCT column_name FROM table_name;
 SELECT * FROM table_name LIMIT number;
 
-🧩 Questions & Answers:
+🧩
 Q4.1: Get the first 5 employees from the employees table.
 Answer:
 SELECT * FROM employees LIMIT 5;
@@ -79,17 +72,13 @@ Q4.2: Find all distinct departments in the employees table.
 Answer:
 SELECT DISTINCT department FROM employees;
 
-Q4.3: Show the first 10 books in the library table.
-Answer:
-SELECT * FROM library LIMIT 10;
-
 
 📘 Topic 5: LIKE Operator
-Explanation:
+
 The LIKE operator is used for pattern matching using:
 % → matches zero or more characters
 _ → matches a single character
-Syntax:
+
 SELECT * FROM table_name WHERE column LIKE 'pattern';
 
 🧩 Questions & Answers:
@@ -101,18 +90,14 @@ Q5.2: Find all books where the title contains the word "Java".
 Answer:
 SELECT * FROM library WHERE title LIKE '%Java%';
 
-Q5.3: Select students whose name ends with 'n'.
-Answer:
-SELECT * FROM students WHERE name LIKE '%n';
-
 
 📘 Topic 6: Basic Arithmetic in SELECT
-Explanation:
+
 You can perform calculations inside the SELECT clause.
-Syntax:
+
 SELECT column, column * 2 AS new_column FROM table_name;
 
-🧩 Questions & Answers:
+🧩
 Q6.1: Show the price of all products and also display double the price as double_price.
 Answer:
 SELECT name, price, price * 2 AS double_price FROM products;
@@ -123,12 +108,12 @@ SELECT name, salary, salary * 12 AS yearly_salary FROM employees;
 
 
 📘 Topic 7: Aliases (AS keyword)
-Explanation:
+
 AS is used to rename columns or tables temporarily in a result set.
-Syntax:
+
 SELECT column_name AS alias_name FROM table_name;
 
-🧩 Questions & Answers:
+🧩
 Q7.1: Select student names as Student_Name.
 Answer:
 SELECT name AS Student_Name FROM students;
