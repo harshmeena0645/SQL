@@ -64,7 +64,7 @@ FROM sales
 GROUP BY product_id
 HAVING SUM(sale_amount) > 10000;
 
-🔹 WHERE	                     🔸 HAVING
+🔹 WHERE	                 🔸 HAVING
 
 Used to filter rows before grouping or aggregation
 Used to filter groups after aggregation
@@ -86,114 +86,110 @@ Example: HAVING COUNT(*) > 3
 
 INNER JOIN returns records with matching values in both tables.
 
-🧩 Questions & Answers:
+🧩
 Q4.1: Get student names and their course names by joining students and courses table using course_id.
-Answer:
+
 SELECT s.name, c.course_name
 FROM students s
 INNER JOIN courses c ON s.course_id = c.course_id;
 
 Q4.2: Get all orders with customer names by joining orders and customers using customer_id.
-Answer:
+
 SELECT o.order_id, c.name
 FROM orders o
 INNER JOIN customers c ON o.customer_id = c.customer_id;
 
 
 📘 Topic 5: LEFT JOIN
-Explanation:
+
 LEFT JOIN returns all rows from the left table, even if there's no match in the right table.
 
-🧩 Questions & Answers:
+🧩
 Q5.1: List all students and their assigned mentor’s name (even if some students don’t have a mentor).
-Answer:
+
 SELECT s.name, m.mentor_name
 FROM students s
 LEFT JOIN mentors m ON s.mentor_id = m.mentor_id;
 
 Q5.2: Show all products and their sales (even products with no sales).
-Answer:
+
 SELECT p.name, s.sale_amount
 FROM products p
 LEFT JOIN sales s ON p.product_id = s.product_id;
 
 
 📘 Topic 6: BETWEEN Operator
-Explanation:
+
 The BETWEEN operator filters values within a range, inclusive of both ends.
-Syntax:
+
 SELECT * FROM table_name WHERE column BETWEEN value1 AND value2;
 
-🧩 Questions & Answers:
-Q6.1: Get students whose age is between 18 and 22.
-Answer:
-SELECT * FROM students WHERE age BETWEEN 18 AND 22;
+🧩
+Q6.1: Get students whose age is b/w 18 and 22.
 
-Q6.2: Find products priced between ₹100 and ₹500.
-Answer:
-SELECT * FROM products WHERE price BETWEEN 100 AND 500;
+SELECT * FROM students WHERE age BETWEEN 18 AND 22;
 
 
 📘 Topic 7: IN Operator
-Explanation:
+
 The IN operator checks whether a value matches any value in a list.
-Syntax:
+
 SELECT * FROM table_name WHERE column IN (value1, value2, ...);
 
-🧩 Questions & Answers:
+🧩
 Q7.1: Get employees working in departments 'HR', 'IT', or 'Finance'.
-Answer:
+
 SELECT * FROM employees WHERE department IN ('HR', 'IT', 'Finance');
 
 Q7.2: Show orders placed by customers with IDs 101, 105, and 110.
-Answer:
+
 SELECT * FROM orders WHERE customer_id IN (101, 105, 110);
 
 
 📘 Topic 8: IS NULL / IS NOT NULL
-Explanation:
+
 Used to check whether a column has no value (NULL) or has a value.
 
-🧩 Questions & Answers:
+🧩
 Q8.1: Find employees who don’t have a manager assigned (i.e., manager_id is NULL).
-Answer:
+
 SELECT * FROM employees WHERE manager_id IS NULL;
 
 Q8.2: List all students who have an email address (email is NOT NULL).
-Answer:
+
 SELECT * FROM students WHERE email IS NOT NULL;
 
 
 📘 Topic 9: Subqueries (Basic)
-Explanation:
+
 A subquery is a query nested inside another query, often used with IN, =, >, etc.
 
-🧩 Questions & Answers:
+🧩
 Q9.1: Find names of customers who have placed an order.
-Answer:
+
 SELECT name
 FROM customers
 WHERE customer_id IN (SELECT customer_id FROM orders);
 
 Q9.2: Get products whose price is more than the average price of all products.
-Answer:
+
 SELECT * FROM products
 WHERE price > (SELECT AVG(price) FROM products);
 
 
 📘 Topic 10: String Functions
-Explanation:
+
 Common string functions include:
 UPPER() – convert to uppercase
 LOWER() – convert to lowercase
 LENGTH() – number of characters
 CONCAT() – join strings
 
-🧩 Questions & Answers:
+🧩
 Q10.1: Get names of all students in uppercase.
-Answer:
+
 SELECT UPPER(name) AS upper_name FROM students;
 
 Q10.2: Show full name of employees by joining first_name and last_name.
-Answer:
+
 SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;
