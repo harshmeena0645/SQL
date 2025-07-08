@@ -2,7 +2,7 @@ Database
 
 1. Create database s;
 a. Show databases;
-b.	Use database- Use s;
+b. Use database- Use s;
 c.	Rename databases- CREATE DATABASE n;                          
                  RENAME TABLE s.s1 TO n.n1;                                                        
 d. DROP database if exists s;
@@ -38,7 +38,7 @@ l.	Add Unique Constraint- ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (name
 
 SQL Question
 
-1. Write a solution to find the ids of products that are both low fat and recyclable. 
+1. Write a solution to find the id's of products that are both low fat and recyclable. 
 select product_id from Products where low_fats='Y' && recyclable='Y'
 
 2. Find the names of the customer that are not referred by the customer with id = 2. 
