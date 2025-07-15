@@ -147,38 +147,31 @@ SELECT * FROM orders WHERE customer_id IN (101, 105, 110);
 
 
 📘 Topic 8: IS NULL / IS NOT NULL
-
 Used to check whether a column has no value (NULL) or has a value.
 
 🧩
-Q8.1: Find employees who don’t have a manager assigned (i.e., manager_id is NULL).
-
+8.1: Find employees who don’t have a manager assigned (i.e., manager_id is NULL).
 SELECT * FROM employees WHERE manager_id IS NULL;
 
-Q8.2: List all students who have an email address (email is NOT NULL).
-
+8.2: List all students who have an email address (email is NOT NULL).
 SELECT * FROM students WHERE email IS NOT NULL;
 
 
 📘 Topic 9: Subqueries (Basic)
-
 A subquery is a query nested inside another query, often used with IN, =, >, etc.
 
 🧩
-Q9.1: Find names of customers who have placed an order.
-
+9.1: Find names of customers who have placed an order.
 SELECT name
 FROM customers
 WHERE customer_id IN (SELECT customer_id FROM orders);
 
-Q9.2: Get products whose price is more than the average price of all products.
-
+9.2: Get products whose price is more than the average price of all products.
 SELECT * FROM products
 WHERE price > (SELECT AVG(price) FROM products);
 
 
 📘 Topic 10: String Functions
-
 Common string functions include:
 UPPER() – convert to uppercase
 LOWER() – convert to lowercase
@@ -186,10 +179,8 @@ LENGTH() – number of characters
 CONCAT() – join strings
 
 🧩
-Q10.1: Get names of all students in uppercase.
-
+10.1:Get names of all students in uppercase.
 SELECT UPPER(name) AS upper_name FROM students;
 
-Q10.2: Show full name of employees by joining first_name and last_name.
-
+10.2: Show full name of employees by joining first_name and last_name.
 SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;
