@@ -48,7 +48,7 @@ SELECT * FROM employees WHERE department = 'Sales';
 
 SELECT * FROM table_name ORDER BY column_name ASC|DESC;
 
-🧩 Questions & Answers:
+🧩
 Q3.1: List all students ordered by age.
 Answer:
 SELECT * FROM students ORDER BY age;
