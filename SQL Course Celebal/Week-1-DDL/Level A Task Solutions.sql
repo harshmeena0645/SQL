@@ -1,16 +1,6 @@
  USE AdventureWorks2022;
  
 
- -- 1. Display all customers
-SELECT * FROM Sales.Customer;
-
-
--- 2. List of all customers where company name ends in 'N'
-SELECT c.CustomerID, s.Name AS CompanyName
-FROM Sales.Customer c
-JOIN Sales.Store s ON c.StoreID = s.BusinessEntityID
-WHERE s.Name LIKE '%N';
-
 
 -- 3. List of all customers who live in Berlin or London
 SELECT p.FirstName, p.LastName, a.City
@@ -21,24 +11,6 @@ JOIN Person.Address a ON a.AddressID = bea.AddressID
 WHERE a.City IN ('Berlin', 'London');
 
 
--- 4. List of all customers who live in UK or USA
-SELECT p.FirstName, p.LastName, cr.Name AS Country
-FROM Sales.Customer c
-JOIN Person.Person p ON p.BusinessEntityID = c.PersonID
-JOIN Person.BusinessEntityAddress b ON b.BusinessEntityID = c.PersonID
-JOIN Person.Address a ON a.AddressID = b.AddressID
-JOIN Person.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
-JOIN Person.CountryRegion cr ON sp.CountryRegionCode = cr.CountryRegionCode
-WHERE cr.CountryRegionCode IN ('GB', 'US');
-
-
--- 5. List of all products sorted by product name
-SELECT Name FROM Production.Product ORDER BY Name;
-
-
--- 6. List of all products where product name starts with an 'A'
-SELECT Name FROM Production.Product WHERE Name LIKE 'A%';
-
 
 -- 7. List of customers who ever placed an order
 SELECT DISTINCT c.CustomerID, p.FirstName, p.LastName
@@ -46,17 +18,6 @@ FROM Sales.Customer c
 JOIN Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
 JOIN Person.Person p ON p.BusinessEntityID = c.PersonID;
 
-
--- 8. List of customers who live in London and have bought chai
-SELECT DISTINCT p.FirstName, p.LastName, a.City, pr.Name AS Product
-FROM Sales.Customer c
-JOIN Person.Person p ON c.PersonID = p.BusinessEntityID
-JOIN Person.BusinessEntityAddress bea ON p.BusinessEntityID = bea.BusinessEntityID
-JOIN Person.Address a ON a.AddressID = bea.AddressID
-JOIN Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
-JOIN Sales.SalesOrderDetail sod ON soh.SalesOrderID = sod.SalesOrderID
-JOIN Production.Product pr ON pr.ProductID = sod.ProductID
-WHERE a.City = 'London' AND pr.Name LIKE '%chai%';
 
 
 -- 9. List of customers who never placed an order
@@ -68,25 +29,10 @@ WHERE c.CustomerID NOT IN (
 );
 
 
--- 10. List of customers who ordered Tofu
-SELECT DISTINCT c.CustomerID, p.FirstName, p.LastName
-FROM Sales.Customer c
-JOIN Person.Person p ON c.PersonID = p.BusinessEntityID
-JOIN Sales.SalesOrderHeader soh ON soh.CustomerID = c.CustomerID
-JOIN Sales.SalesOrderDetail sod ON sod.SalesOrderID = soh.SalesOrderID
-JOIN Production.Product pr ON pr.ProductID = sod.ProductID
-WHERE pr.Name = 'Tofu';
-
-
 -- 11. Details of the first order in the system (by date)
 SELECT TOP 1 *
 FROM Sales.SalesOrderHeader
 ORDER BY OrderDate ASC;
-
--- 12. Details of the most expensive order (by TotalDue)
-SELECT TOP 1 *
-FROM Sales.SalesOrderHeader
-ORDER BY TotalDue DESC;
 
 
 -- 13. For each order, get the OrderID and average quantity of items in that order
@@ -94,13 +40,6 @@ SELECT SalesOrderID, AVG(OrderQty) AS AverageQuantity
 FROM Sales.SalesOrderDetail
 GROUP BY SalesOrderID;
 
-
--- 14. For each order, get the OrderID, minimum and maximum quantity
-SELECT SalesOrderID,
-       MIN(OrderQty) AS MinQuantity,
-       MAX(OrderQty) AS MaxQuantity
-FROM Sales.SalesOrderDetail
-GROUP BY SalesOrderID;
 
 
 -- 15. List all managers and how many employees report to them
@@ -121,20 +60,6 @@ FROM Sales.SalesOrderDetail
 GROUP BY SalesOrderID
 HAVING SUM(OrderQty) > 300;
 
-
--- 17. List of all orders placed on or after 1996-12-31
-SELECT *
-FROM Sales.SalesOrderHeader
-WHERE OrderDate >= '1996-12-31';
-
-
--- 18. Orders shipped to Canada
-SELECT soh.SalesOrderID, a.City, a.PostalCode, cr.Name AS Country
-FROM Sales.SalesOrderHeader soh
-JOIN Person.Address a ON soh.ShipToAddressID = a.AddressID
-JOIN Person.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
-JOIN Person.CountryRegion cr ON sp.CountryRegionCode = cr.CountryRegionCode
-WHERE cr.Name = 'Canada';
 
 
 -- 19. Orders with TotalDue > 200
@@ -199,11 +124,6 @@ WHERE SalesPersonID IS NOT NULL
 GROUP BY SalesPersonID;
 
 
--- 26. Employees whose FirstName contains the character 'a'
-SELECT p.FirstName, p.LastName
-FROM HumanResources.Employee e
-JOIN Person.Person p ON e.BusinessEntityID = p.BusinessEntityID
-WHERE p.FirstName LIKE '%a%';
 
 
 -- 27. Managers with more than 4 direct reports
@@ -336,10 +256,5 @@ SELECT TOP 10 CustomerID, SUM(TotalDue) AS TotalSpent
 FROM Sales.SalesOrderHeader
 GROUP BY CustomerID
 ORDER BY TotalSpent DESC;
-
-
--- 42. Total revenue of the company
-SELECT SUM(TotalDue) AS TotalRevenue
-FROM Sales.SalesOrderHeader;
 
 
