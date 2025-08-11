@@ -15,41 +15,58 @@ yn BOOLEAN DEFAULT 0,
 rating FLOAT DEFAULT 9.9);
 
 a. Show all table (Show tables;)
+
 b. Insert data ( Insert into s1 (id,age,name,dob,yn,rating) values(1,12,’h’,’2004-03-03’,1,8.9),(),() )
+
 c. Delete table  (Drop table if exists s1;)
+
 d. Rename table  (RENAME TABLE s1 TO s2;)
               //ALTER TABLE s1 RENAME TO s2;
+
 e. Rename Column  (ALTER TABLE s1 CHANGE COLUMN salary sal int;)
+
 f. Get Table Structure  
    (desc s1;)  // DESCRIBE s1;
+
 g. Count Row  
 (SELECT COUNT(*) AS total_rows FROM a5;)
 
 
-3.	Operations- 
-a.	Delete one row  (DELETE FROM s1 WHERE id=5;)
-b.	Update value 
+3. Operations- 
+a. Delete one row  (DELETE FROM s1 WHERE id=5;)
+
+b. Update value 
 (UPDATE s1 SET name = ‘c’, age=8 WHERE id=0;)
-c.	Add Column 
+
+c. Add Column 
 (ALTER TABLE s1 add COLUMN id int after age;)
-d.	Drop Column 
+
+d. Drop Column 
 (ALTER TABLE s1 DROP COLUMN salary;)
-e.	Remove all data  
+
+e. Remove all data  
 (TRUNCATE TABLE s1; )  // DELETE FROM a5;
-f.	Conditional Update  
+
+f. Conditional Update  
 (UPDATE s1 SET yn=TRUE WHERE age > 20;)
-g.	Copy Table  
+
+g. Copy Table  
 (CREATE TABLE s1copy AS select * from s1;)
-h.	Top N row  
+
+h. Top N row  
 (select * from s1 limit 5;)
-i.	Duplicate row  
+
+i. Duplicate row  
 (select name, COUNT(*) from s1 GROUP BY name HAVING COUNT(*) > 1;)
-j.	Find NULL values  
+
+j. Find NULL values  
 (SELECT * FROM s1 WHERE name IS NULL;)
-k.	Row Matching Pattern- 
+
+k. Row Matching Pattern- 
    SELECT * FROM a5 WHERE name LIKE 'A%';
    // SELECT * FROM a5 WHERE name LIKE '_A%';
-l.	Add Unique Constraint  
+
+l. Add Unique Constraint  
 (ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (name);)
 
 
