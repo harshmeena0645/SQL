@@ -13,111 +13,79 @@ Topics covered:
 
 
 📘 Topic 1: SELECT and FROM
-
 SELECT column1, column2 FROM table_name;
 
-🧩
 Q1.1: Retrieve all columns from the students table.
-Answer:
-SELECT * FROM students;
+👉 SELECT * FROM students;
 
 Q1.2: Retrieve only the name and age of all students from the students table.
-Answer:
-SELECT name, age FROM students;
-
-Q1.3: Get the list of all employees' first_name from the employees table.
-Answer:
-SELECT first_name FROM employees;
+👉 SELECT name, age FROM students;
 
 
 📘 Topic 2: WHERE Clause
-
 SELECT * FROM table_name WHERE condition;
 
-🧩
 Q2.1: Find all students whose age is more than 18.
-Answer:
-SELECT * FROM students WHERE age > 18;
+👉 SELECT * FROM students WHERE age > 18;
 
 Q2.2: Get employees from the employees table whose department is 'Sales'.
-Answer:
-SELECT * FROM employees WHERE department = 'Sales';
+👉 SELECT * FROM employees WHERE department = 'Sales';
 
 
 📘 Topic 3: ORDER BY
-
 SELECT * FROM table_name ORDER BY column_name ASC|DESC;
 
-🧩
 Q3.1: List all students ordered by age.
-Answer:
-SELECT * FROM students ORDER BY age;
+👉 SELECT * FROM students ORDER BY age;
 
 Q3.2: Show all products from the products table ordered by price in descending order.
-Answer:
-SELECT * FROM products ORDER BY price DESC;
+👉 SELECT * FROM products ORDER BY price DESC;
 
 
 📘 Topic 4: LIMIT and DISTINCT
-
 SELECT DISTINCT column_name FROM table_name;
 SELECT * FROM table_name LIMIT number;
 
-🧩
 Q4.1: Get the first 5 employees from the employees table.
-Answer:
-SELECT * FROM employees LIMIT 5;
+👉 SELECT * FROM employees LIMIT 5;
 
-Q4.2: Find all distinct departments in the employees table.
-Answer:
-SELECT DISTINCT department FROM employees;
+Q4.2: Get first 2 employees from the employees table after leaving first 3.
+👉 SELECT * FROM employees LIMIT 3,2;
+
+Q4.3: Find all distinct departments in the employees table.
+👉 SELECT DISTINCT department FROM employees;
 
 
 📘 Topic 5: LIKE Operator
-
 The LIKE operator is used for pattern matching using:
 % → matches zero or more characters
 _ → matches a single character
-
 SELECT * FROM table_name WHERE column LIKE 'pattern';
 
-🧩 Questions & Answers:
 Q5.1: Get all customers whose name starts with 'A'.
-Answer:
-SELECT * FROM customers WHERE name LIKE 'A%';
+👉 SELECT * FROM customers WHERE name LIKE 'A%';
 
 Q5.2: Find all books where the title contains the word "Java".
-Answer:
-SELECT * FROM library WHERE title LIKE '%Java%';
+👉 SELECT * FROM library WHERE title LIKE '%Java%';
 
 
 📘 Topic 6: Basic Arithmetic in SELECT
-
 You can perform calculations inside the SELECT clause.
-
 SELECT column, column * 2 AS new_column FROM table_name;
 
-🧩
 Q6.1: Show the price of all products and also display double the price as double_price.
-Answer:
-SELECT name, price, price * 2 AS double_price FROM products;
+👉 SELECT name, price, price * 2 AS double_price FROM products;
 
-Q6.2: Get employees’ names and their yearly salary (salary * 12).
-Answer:
-SELECT name, salary, salary * 12 AS yearly_salary FROM employees;
+Q6.2: Get employees names and their yearly salary (salary * 12).
+👉 SELECT name, salary, salary * 12 AS yearly_salary FROM employees;
 
 
 📘 Topic 7: Aliases (AS keyword)
-
 AS is used to rename columns or tables temporarily in a result set.
-
 SELECT column_name AS alias_name FROM table_name;
 
-🧩
 Q7.1: Select student names as Student_Name.
-Answer:
-SELECT name AS Student_Name FROM students;
+👉 SELECT name AS Student_Name FROM students;
 
 Q7.2: Select product name and price, but rename price as Cost.
-Answer:
-SELECT name, price AS Cost FROM products;
+👉 SELECT name, price AS Cost FROM products;
