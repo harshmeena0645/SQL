@@ -10,59 +10,38 @@ Topics covered:
 
 
 📘 Topic 1: Aggregate Functions
-
 These functions work on a group of rows:
 COUNT() – total number of rows
 SUM() – sum of a column
 AVG() – average
 MAX(), MIN() – maximum and minimum
 
-🧩
 Q1.1: Find the total number of students in the students table.
-Answer:
-SELECT COUNT(*) AS total_students FROM students;
+👉 SELECT COUNT(*) AS total_students FROM students;
 
 Q1.2: Get the average salary of employees.
-Answer:
-SELECT AVG(salary) AS average_salary FROM employees;
+👉 SELECT AVG(salary) AS average_salary FROM employees;
 
 
 📘 Topic 2: GROUP BY Clause
+GROUP BY groups rows that have the same values into summary rows
 
-GROUP BY groups rows that have the same values into summary rows.
-
-🧩
 Q2.1: Get the number of employees in each department.
-Answer:
-SELECT department, COUNT(*) AS total_employees
-FROM employees
-GROUP BY department;
+👉 SELECT department, COUNT(*) AS total_employees FROM employees GROUP BY department;
 
 Q2.2: Find the total sales made by each salesman from the sales table.
-Answer:
-SELECT salesman_id, SUM(sale_amount) AS total_sales
-FROM sales
-GROUP BY salesman_id;
+👉 SELECT salesman_id, SUM(sale_amount) AS total_sales FROM sales GROUP BY salesman_id;
 
 
 📘 Topic 3: HAVING Clause
-
 HAVING is used to filter groups (used after GROUP BY), similar to WHERE for rows.
 
-🧩
 Q3.1: Show departments that have more than 5 employees.
-Answer:
-SELECT department, COUNT(*) AS emp_count
-FROM employees
-GROUP BY department
-HAVING COUNT(*) > 5;
+👉 SELECT department, COUNT(*) AS emp_count FROM employees GROUP BY department HAVING COUNT(*) > 5;
 
 Q3.2: List products that have total sales more than 10000.
-Answer:
-SELECT product_id, SUM(sale_amount) AS total_sales
-FROM sales
-GROUP BY product_id
-HAVING SUM(sale_amount) > 10000;
+👉 SELECT product_id, SUM(sale_amount) AS total_sales FROM sales GROUP BY product_id HAVING SUM(sale_amount) > 10000;
+
 
 🔹 WHERE	                 🔸 HAVING
 
@@ -83,73 +62,38 @@ Example: HAVING COUNT(*) > 3
 
 
 📘 Topic 4: INNER JOIN
+Returns records with matching values in both tables
 
-INNER JOIN returns records with matching values in both tables.
-
-🧩
 Q4.1: Get student names and their course names by joining students and courses table using course_id.
-
-SELECT s.name, c.course_name
-FROM students s
-INNER JOIN courses c ON s.course_id = c.course_id;
-
-Q4.2: Get all orders with customer names by joining orders and customers using customer_id.
-
-SELECT o.order_id, c.name
-FROM orders o
-INNER JOIN customers c ON o.customer_id = c.customer_id;
+👉 SELECT s.name, c.course_name FROM students s INNER JOIN courses c ON s.course_id = c.course_id;
 
 
 📘 Topic 5: LEFT JOIN
+Returns all rows from the left table, even if there's no match in the right table.
 
-LEFT JOIN returns all rows from the left table, even if there's no match in the right table.
-
-🧩
 Q5.1: List all students and their assigned mentor’s name (even if some students don’t have a mentor).
-
-SELECT s.name, m.mentor_name
-FROM students s
-LEFT JOIN mentors m ON s.mentor_id = m.mentor_id;
-
-Q5.2: Show all products and their sales (even products with no sales).
-
-SELECT p.name, s.sale_amount
-FROM products p
-LEFT JOIN sales s ON p.product_id = s.product_id;
+👉 SELECT s.name, m.mentor_name FROM students s LEFT JOIN mentors m ON s.mentor_id = m.mentor_id;
 
 
 📘 Topic 6: BETWEEN Operator
-
-The BETWEEN operator filters values within a range, inclusive of both ends.
-
+Filters values within a range, inclusive of both ends.
 SELECT * FROM table_name WHERE column BETWEEN value1 AND value2;
 
-🧩
 Q6.1: Get students whose age is b/w 18 and 22.
-
 SELECT * FROM students WHERE age BETWEEN 18 AND 22;
 
 
 📘 Topic 7: IN Operator
-
-The IN operator checks whether a value matches any value in a list.
-
+Checks whether a value matches any value in a list.
 SELECT * FROM table_name WHERE column IN (value1, value2, ...);
 
-🧩
 Q7.1: Get employees working in departments 'HR', 'IT', or 'Finance'.
-
 SELECT * FROM employees WHERE department IN ('HR', 'IT', 'Finance');
-
-Q7.2: Show orders placed by customers with IDs 101, 105, and 110.
-
-SELECT * FROM orders WHERE customer_id IN (101, 105, 110);
 
 
 📘 Topic 8: IS NULL / IS NOT NULL
 Used to check whether a column has no value (NULL) or has a value.
 
-🧩
 8.1: Find employees who don’t have a manager assigned (i.e., manager_id is NULL).
 SELECT * FROM employees WHERE manager_id IS NULL;
 
@@ -160,15 +104,11 @@ SELECT * FROM students WHERE email IS NOT NULL;
 📘 Topic 9: Subqueries (Basic)
 A subquery is a query nested inside another query, often used with IN, =, >, etc.
 
-🧩
 9.1: Find names of customers who have placed an order.
-SELECT name
-FROM customers
-WHERE customer_id IN (SELECT customer_id FROM orders);
+SELECT name FROM customers WHERE customer_id IN (SELECT customer_id FROM orders);
 
 9.2: Get products whose price is more than the average price of all products.
-SELECT * FROM products
-WHERE price > (SELECT AVG(price) FROM products);
+SELECT * FROM products WHERE price > (SELECT AVG(price) FROM products);
 
 
 📘 Topic 10: String Functions
@@ -178,7 +118,6 @@ LOWER() – convert to lowercase
 LENGTH() – number of characters
 CONCAT() – join strings
 
-🧩
 10.1:Get names of all students in uppercase.
 SELECT UPPER(name) AS upper_name FROM students;
 
