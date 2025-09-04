@@ -2,23 +2,6 @@
  
 
 
--- 3. List of all customers who live in Berlin or London
-SELECT p.FirstName, p.LastName, a.City
-FROM Person.Person p
-JOIN Sales.Customer c ON p.BusinessEntityID = c.PersonID
-JOIN Person.BusinessEntityAddress bea ON bea.BusinessEntityID = c.PersonID
-JOIN Person.Address a ON a.AddressID = bea.AddressID
-WHERE a.City IN ('Berlin', 'London');
-
-
-
--- 7. List of customers who ever placed an order
-SELECT DISTINCT c.CustomerID, p.FirstName, p.LastName
-FROM Sales.Customer c
-JOIN Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
-JOIN Person.Person p ON p.BusinessEntityID = c.PersonID;
-
-
 
 -- 9. List of customers who never placed an order
 SELECT c.CustomerID, p.FirstName, p.LastName
@@ -29,10 +12,12 @@ WHERE c.CustomerID NOT IN (
 );
 
 
+
 -- 11. Details of the first order in the system (by date)
 SELECT TOP 1 *
 FROM Sales.SalesOrderHeader
 ORDER BY OrderDate ASC;
+
 
 
 -- 13. For each order, get the OrderID and average quantity of items in that order
@@ -256,5 +241,6 @@ SELECT TOP 10 CustomerID, SUM(TotalDue) AS TotalSpent
 FROM Sales.SalesOrderHeader
 GROUP BY CustomerID
 ORDER BY TotalSpent DESC;
+
 
 
