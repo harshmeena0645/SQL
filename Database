@@ -69,48 +69,52 @@ k. Row Matching Pattern-
 l. Add Unique Constraint  
 (ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (name);)
 
+🔹 SQL Functions
+**Aggregate** (`SUM()`, `AVG()`, `COUNT()`)
+**String**     (`LEN()`, `UPPER()`, LOWER())
+**Date/Time**  (GETDATE(), DATEPART())
+**Conversion** (CAST()`, `CONVERT())
 
 
 SQL Question
 
-4. find all the authors that viewed at least one of their own articles.
+1. find all the authors that viewed at least one of their own articles.
 SELECT distinct author_id AS id FROM Views WHERE author_id = viewer_id Order by id
 
 
-5. find the IDs of the invalid tweets. Tweet is invalid if number of characters used in content of tweet is strictly greater than 15.
+2. find the IDs of the invalid tweets. Tweet is invalid if number of characters used in content of tweet is strictly greater than 15.
 select tweet_id from Tweets where length(content)>15
 
 
-6. show the unique ID of each user, If a user does not have a unique ID replace just show null.
+3. show the unique ID of each user, If a user does not have a unique ID replace just show null.
 select unique_id,name from Employees left Join EmployeeUNI  on Employees.id =  EmployeeUNI.id
 
 
-8. Report the name and bonus amount of each employee with a bonus less than 1000.
+4. Report the name and bonus amount of each employee with a bonus less than 1000.
 SELECT name, bonus  FROM Employee WHERE bonus < 1000 OR bonus IS NULL;
 
 
-9. Reports the average experience years of all the employees for each project, rounded to 2 digits.
+5. Reports the average experience years of all the employees for each project, rounded to 2 digits.
 SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Employee GROUP BY project_id;
 
 
-10. Calculate the number of unique subjects each teacher, teaches in the university.
+6. Calculate the number of unique subjects each teacher, teaches in the university.
 Select teacher_id , Count(Distinct subject_id) as cnt from Teacher Group BY teacher_id
 
 
-11.  find Daily active user count for a period of 30 days ending 2019-07-27 inclusively. A user was active on someday if they made at least one activity on that day.
+7.  find Daily active user count for a period of 30 days ending 2019-07-27 inclusively. A user was active on someday if they made at least one activity on that day.
 SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity Where activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'GROUP BY activity_date;
 
 
-12. Select the product id, year, quantity, and price for the first year of every product sold.
+8. Select the product id, year, quantity, and price for the first year of every product sold.
 SELECT Sales.product_id, FirstYearSales.first_year, Sales.quantity, Sales.price FROM Sales INNER JOIN 
 (SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id) AS FirstYearSales ON Sales.product_id = FirstYearSales.product_id AND Sales.year = FirstYearSales.first_year;
 
-
-13. The movies with an odd-numbered ID and a description that is not "boring".
+9. The movies with an odd-numbered ID and a description that is not "boring".
 SELECT id, movie, description, rating FROM Cinema WHERE (id % 2) != 0 AND description != 'boring' ORDER BY rating DESC;
 
 
-14. Nth Highest Salary.
+10. Nth Highest Salary.
 Nth Highest Salary :   CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
     SET N = N - 1;
@@ -121,3 +125,13 @@ BEGIN
         LIMIT 1 OFFSET N
     );
 END
+
+
+11. Name and bonus amount of each employee with a bonus less than 1000.
+SELECT E.name, B.bonus FROM Employee AS E LEFT JOIN Bonus AS B ON E.empID = B.empID WHERE B.bonus < 1000 or B.bonus is Null;
+
+12. Employees who earn more than their managers.
+select e2.name as Employee from Employee e1 join Employee e2 on e1.id=e2.managerID where e1.salary < e2.salary;
+
+13. Duplicate emails. Note that it's guaranteed that the email field is not NULL.
+select distinct p1.email as "Email" from person p1 ,person p2 where p1.id!=p2.id and p1.email=p2.email ;
