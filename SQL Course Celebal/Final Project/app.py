@@ -60,3 +60,5 @@ st.pyplot(fig)
 st.subheader("⬇️ Download CSV")
 csv = filtered_df.to_csv(index=False)
 st.download_button("Download Filtered Departments", data=csv, file_name="AboveAvgDepartments.csv", mime="text/csv")
+
+🔗 **Live App**: [https://dept-salary-analysis-krishnashelar.streamlit.app/](https://dept-salary-analysis-krishnashelar.streamlit.app/)
