@@ -15,14 +15,14 @@ dob DATETIME DEFAULT CURRENT_TIMESTAMP,
 yn BOOLEAN DEFAULT 0,
 rating FLOAT DEFAULT 9.9);
 
-a. Show all table (Show tables;)
+a. Insert data ( Insert into s1 (id,age,name,dob,yn,rating) values(1,12,’h’,’2004-03-03’,1,8.9),(),() )
 
-b. Insert data ( Insert into s1 (id,age,name,dob,yn,rating) values(1,12,’h’,’2004-03-03’,1,8.9),(),() )
+b. Show all table (Show tables;)
 
-c. Delete table  (Drop table if exists s1;)
+c. Rename table  (RENAME TABLE s1 TO s2;)
+              //ALTER TABLE s1 RENAME TO s2;Delete table  (Drop table if exists s1;)
 
-d. Rename table  (RENAME TABLE s1 TO s2;)
-              //ALTER TABLE s1 RENAME TO s2;
+d. Delete table  (Drop table if exists s1;)
 
 e. Rename Column  (ALTER TABLE s1 CHANGE COLUMN salary sal int;)
 
@@ -32,7 +32,7 @@ g. Count Row
 (SELECT COUNT(*) AS total_rows FROM a5;)
 
 
-3. Operations- 
+3. Operations on Table data - 
 a. Delete one row  (DELETE FROM s1 WHERE id=5;)
 
 b. Update value
@@ -135,3 +135,87 @@ select e2.name as Employee from Employee e1 join Employee e2 on e1.id=e2.manager
 
 13. Duplicate emails. Note that it's guaranteed that the email field is not NULL.
 select distinct p1.email as "Email" from person p1 ,person p2 where p1.id!=p2.id and p1.email=p2.email ;
+
+14. All customers who never order anything.
+select c.name as Customers from Customers c left join Orders o on c.id=o.customerID where o.customerID is Null;
+
+15. delete all duplicate emails
+delete p1 from person p1 join person p2 on p1.email=p2.email and p1.id>p2.id;
+
+16. all dates id with higher temperatures compared to its previous dates (yesterday).
+SELECT w1.id FROM Weather w1, Weather w2
+WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
+
+17. name and bonus amount of each employee with a bonus less than 1000.
+SELECT E.name, B.bonus FROM Employee AS E LEFT JOIN Bonus AS B ON E.empID = B.empID WHERE B.bonus < 1000 or B.bonus is Null;
+
+18.names of the customer that are either: referred by any customer with id != 2, not referred by any customer.
+select name from Customer where referee_id is null OR referee_id <> 2
+
+19. find the name, population, and area of the big countries.
+SELECT name,population,area FROM World WHERE area >= 3000000 OR population >= 25000000
+
+20. Write a solution to report the movies with an odd-numbered ID and a description that is not "boring". Return the result table ordered by rating in descending order.
+SELECT id, movie, description, rating FROM Cinema WHERE (id % 2) != 0 AND description != 'boring' ORDER BY rating DESC;
+
+21. Write a solution to report the product_name, year, and price for each sale_id in the Sales table.
+select product_name,year,price from Sales left Join Producton Sales.product_id = Product.product_id
+
+22. Write an SQL query that reports the average experience years of all the employees for each project, rounded to 2 digits.
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id;
+
+23. Write a solution to find the daily active user count for a period of 30 days ending 2019-07-27 inclusively. A user was active on someday if they made at least one activity on that day.
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WhERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'GROUP BY activity_date;
+
+24.  find all the authors that viewed at least one of their own articles. Return the result table sorted by id in ascending order.
+SELECT distinct author_id AS id FROM Views WHERE author_id = viewer_id Order by id
+
+25. Write a solution to find each query_name, the quality and poor_query_percentage. Both quality and poor_query_percentage should be rounded to 2 decimal places.
+SELECT 
+    query_name,
+    ROUND(SUM(rating * 1.0 / position) / COUNT(*), 2) AS quality,
+    ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS poor_query_percentage
+FROM 
+    Queries
+WHERE 
+    query_name IS NOT NULL
+GROUP BY 
+    query_name;
+
+26. Write a solution to find the average selling price for each product. average_price should be rounded to 2 decimal places. If a product does not have any sold units, its average selling price is assumed to be 0.
+SELECT 
+    p.product_id,
+    ROUND(COALESCE(SUM(p.price * u.units) / NULLIF(SUM(u.units), 0), 0), 2) AS average_price
+FROM 
+    Prices p
+LEFT JOIN 
+    UnitsSold u 
+ON 
+    p.product_id = u.product_id 
+    AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY 
+    p.product_id;
+
+27. Write a solution to show the unique ID of each user, If a user does not have a unique ID replace just show null.
+select unique_id,name from Employees left Join EmployeeUNI  on Employees.id =  EmployeeUNI.id
+
+28. Write a solution to find the percentage of the users registered in each contest rounded to two decimals. Return the result table ordered by percentage in descending order. In case of a tie, order it by contest_id in ascending order.
+SELECT 
+    r.contest_id,
+    ROUND(COUNT(DISTINCT r.user_id) * 100.0 / (SELECT COUNT(*) FROM Users), 2) AS percentage
+FROM 
+    Register r
+GROUP BY 
+    r.contest_id
+ORDER BY 
+    percentage DESC, 
+    r.contest_id ASC;
+
+29. Write a solution to find the IDs of the invalid tweets. The tweet is invalid if the number of characters used in the content of the tweet is strictly greater than 15.
+select tweet_id from Tweets where length(content)>15
+
+30. Write a solution to find the ids of products that are both low fat and recyclable.
+select product_id from Products where low_fats="Y" and recyclable="Y";
+
+31. Write a solution to calculate the number of unique subjects each teacher teaches in the university.
+Select teacher_id , Count(Distinct subject_id) as cnt from Teacher Group BY teacher_id
