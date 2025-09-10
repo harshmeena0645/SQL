@@ -66,34 +66,36 @@ l. Add Unique Constraint   (ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (na
 SQL Question
 
 1. find all authors that viewed at least one of their own articles, id in Ascending order
-SELECT distinct author_id AS id FROM Views WHERE author_id = viewer_id Order by id
+👉 SELECT distinct author_id AS id FROM Views WHERE author_id = viewer_id Order by id
 
 2. find IDs of invalid tweets. If no. of char in content of tweet is greater than 15.
-select tweet_id from Tweets where length(content)>15
+👉 Select tweet_id from Tweets where length(content)>15
 
 3. show unique ID of each user, If user not have unique ID replace just show null.
-select unique_id, name from Employees left Join EmployeeUNI  on Employees.id =  EmployeeUNI.id
+👉 Select unique_id, name from Employees left Join EmployeeUNI  on Employees.id =  EmployeeUNI.id
 
 4. names of the customer that are either: referred by any customer with id != 2, not referred by any customer.
-select name from Customer where referee_id is null OR referee_id <> 2
+👉 Select name from Customer where referee_id is null OR referee_id <> 2
 
 5. Movies with odd-numbered ID and description that is not "boring", Ordered by rating in descending order.
-SELECT id, movie, description, rating FROM Cinema WHERE (id % 2) != 0 AND description != 'boring' ORDER BY rating DESC;
+👉 SELECT id, movie, description, rating FROM Cinema WHERE (id % 2) != 0 AND description != 'boring' ORDER BY rating DESC;
 
 6. Calculate number of unique subjects each teacher, teaches in the university.
-Select teacher_id , Count(Distinct subject_id) as cnt from Teacher Group BY teacher_id
+👉 Select teacher_id , Count(Distinct subject_id) as cnt from Teacher Group BY teacher_id
 
 7. name and bonus amount of each employee with a bonus less than 1000.
-SELECT E.name, B.bonus FROM Employee AS E LEFT JOIN Bonus AS B ON E.empID = B.empID WHERE B.bonus < 1000 or B.bonus is Null;
+👉 SELECT E.name, B.bonus FROM Employee AS E LEFT JOIN Bonus AS B ON E.empID = B.empID WHERE B.bonus < 1000 or B.bonus is Null;
 
 8. Select product id, year, quantity, and price for first year of every product sold.
-SELECT Sales.product_id, FirstYearSales.first_year, Sales.quantity, Sales.price FROM Sales INNER JOIN 
+👉 SELECT Sales.product_id, FirstYearSales.first_year, Sales.quantity, Sales.price FROM Sales INNER JOIN 
 (SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id) AS FirstYearSales ON Sales.product_id = FirstYearSales.product_id AND Sales.year = FirstYearSales.first_year;
 
-9. 
+9. Q14.1: Get top 2 highest-paid employees in each department.
+👉 SELECT name, department, salary FROM (SELECT name, department, salary, RANK() OVER (PARTITION BY department ORDER BY salary DESC) 
+AS rnk FROM employees) AS ranked WHERE rnk <= 2;
 
 10. Nth Highest Salary.
-Nth Highest Salary :
+👉 Nth Highest Salary :
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
     SET N = N - 1;
@@ -108,22 +110,22 @@ BEGIN
 END;
 
 11. Name and bonus amount of each employee with a bonus less than 1000.
-SELECT E.name, B.bonus FROM Employee AS E LEFT JOIN Bonus AS B ON E.empID = B.empID WHERE B.bonus < 1000 or B.bonus is Null;
+👉 SELECT E.name, B.bonus FROM Employee AS E LEFT JOIN Bonus AS B ON E.empID = B.empID WHERE B.bonus < 1000 or B.bonus is Null;
 
 12. Employees who earn more than their managers.
-SELECT e2.name as Employee FROM employee e1 JOIN employee e2 ON e1.id = e2.managerID WHERE e1.salary < e2.salary;
+👉 SELECT e2.name as Employee FROM employee e1 JOIN employee e2 ON e1.id = e2.managerID WHERE e1.salary < e2.salary;
 
 13. Duplicate emails. Note that it's guaranteed that the email field is not NULL.
-select distinct p1.email as Email from person p1, person p2 where p1.email = p2.email and p1.id != p2.id;
+👉 Select distinct p1.email as Email from person p1, person p2 where p1.email = p2.email and p1.id != p2.id;
 
 14. All customers who never order anything.
-select c.name as Customers from Customers c left join Orders o on c.id=o.customerID where o.customerID is Null;
+👉 Select c.name as Customers from Customers c left join Orders o on c.id=o.customerID where o.customerID is Null;
 
 15. delete all duplicate emails
-delete p1 from person p1 join person p2 on p1.email = p2.email and p1.id > p2.id;
+👉 Delete p1 from person p1 join person p2 on p1.email = p2.email and p1.id > p2.id;
 
 16. all dates id with higher temperatures compared to its previous dates (yesterday).
-SELECT w1.id FROM Weather w1 join Weather w2 on w1.temperature > w2.temperature
+👉 SELECT w1.id FROM Weather w1 join Weather w2 on w1.temperature > w2.temperature
 Where DATEDIFF(w1.recordDate, w2.recordDate) = 1;
 
 17. 
@@ -135,30 +137,30 @@ Where DATEDIFF(w1.recordDate, w2.recordDate) = 1;
 20. 
 
 21. product_name, year, and price for each sale_id in the Sales table.
-select product_name,year,price from Sales left Join Producton on Sales.product_id = Product.product_id
+👉 Select product_name,year,price from Sales left Join Producton on Sales.product_id = Product.product_id
 SELECT product_name,year,price FROM Sales JOIN Product USING(product_id);
 
 22. Average experience years of all employees for each project, rounded to 2 digits.
-SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project p JOIN Employee e 
+👉 SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project p JOIN Employee e 
 ON p.employee_id = e.employee_id GROUP BY p.project_id;
 
 23. Daily active user count for period of 30 days ending 2019-07-27 inclusively. User was active on someday if they made at least 1 activity on that day.
-SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity 
+👉 SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity 
 WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'GROUP BY activity_date;
 
 24. Find each query_name, quality and poor_query_percentage. Both quality and poor_query_percentage to 2 decimal places.
-SELECT query_name,
+👉 SELECT query_name,
     ROUND(SUM(rating * 1.0 / position) / COUNT(*), 2) AS quality,
     ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS poor_query_percentage
 FROM Queries WHERE query_name IS NOT NULL GROUP BY query_name;
 
 25. Find average selling price for each product (2 decimal) If a product does not have any sold units, its average selling price is assumed to be 0.
-SELECT p.product_id, ROUND(COALESCE(SUM(p.price * u.units) / NULLIF(SUM(u.units), 0), 0), 2) AS average_price
+👉 SELECT p.product_id, ROUND(COALESCE(SUM(p.price * u.units) / NULLIF(SUM(u.units), 0), 0), 2) AS average_price
 FROM Prices p LEFT JOIN UnitsSold u ON p.product_id = u.product_id AND u.purchase_date 
 BETWEEN p.start_date AND p.end_date GROUP BY p.product_id;
 
 26. find percentage of users registered in each contest (2 decimal) Return result table ordered by percentage in desc order. In case of a tie, order it by contest_id in asce order.
-SELECT r.contest_id, ROUND(COUNT(DISTINCT r.user_id) * 100.0 / (SELECT COUNT(*) FROM Users), 2) AS percentage
+👉 SELECT r.contest_id, ROUND(COUNT(DISTINCT r.user_id) * 100.0 / (SELECT COUNT(*) FROM Users), 2) AS percentage
 FROM Register r GROUP BY r.contest_id ORDER BY percentage DESC, r.contest_id ASC;
 
 27. 
