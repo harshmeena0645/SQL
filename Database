@@ -182,6 +182,9 @@ SELECT name, salary FROM employees e WHERE salary > (SELECT AVG(salary) FROM emp
 Q2. Find employees who earn the maximum salary in their department.
 SELECT e.name, e.department, e.salary FROM employees e WHERE salary = (SELECT MAX(salary) FROM employees WHERE department=e.department);
 ✔ Concept: Correlated subquery (depends on outer query).
+SELECT e.department, e.name, e.salary FROM employees e JOIN (SELECT department, MAX(salary) AS max_salary FROM employees GROUP BY department) t
+ON e.department = t.department AND e.salary = t.max_salary;
+✔ Derived Table / Subquery in FROM
 
 Q3. Find departments where at least one employee earns more than 1,00,000.
 SELECT DISTINCT department FROM employees e WHERE EXISTS (SELECT 1 FROM employees WHERE department = e.department AND salary > 100000);
