@@ -8,7 +8,6 @@ Topics covered:
 ✔ Correlated Subqueries
 ✔ EXISTS
 ✔ LEAD/LAG
-✔ Real-world Scenarios
 
 
 📘 Topic 1: RANK(), DENSE_RANK(), ROW_NUMBER()
@@ -59,10 +58,16 @@ FROM products;
 A correlated subquery depends on values from the outer query.
 
 Q4.1: Find employees who earn more than the average salary of their department.
+👉 SELECT e.name, e.department, e.salary FROM employees e 
+JOIN ( SELECT department, AVG(salary) AS avg_salary FROM employees GROUP BY department ) dept_avg
+ON e.department = dept_avg.department WHERE e.salary > dept_avg.avg_salary;
 👉 SELECT e1.name, e1.department, e1.salary FROM employees e1 
 WHERE e1.salary > (SELECT AVG(e2.salary) FROM employees e2 WHERE e2.department = e1.department);
 
 Q4.2: Show students who scored the highest marks in their class.
+👉 SELECT s.name, s.class, s.marks FROM students s
+JOIN ( SELECT class, MAX(marks) AS max_marks FROM students GROUP BY class ) t
+ON s.class = t.class AND s.marks = t.max_marks;
 👉 SELECT s1.name, s1.class, s1.marks FROM students s1 
 WHERE s1.marks = (SELECT MAX(s2.marks) FROM students s2 WHERE s2.class = s1.class);
 
@@ -97,10 +102,3 @@ Q13.1: From a list of products, show only those whose price is above the overall
 
 Q13.2: Get departments and their employee count, only showing those with count > 3, using subquery in FROM.
 👉 SELECT * FROM (SELECT department, COUNT(*) AS emp_countFROM employeesGROUP BY department) AS dept_stats WHERE emp_count > 3;
-
-
-📘 Topic 8: Real-world Business Logic
-
-Q14.1: Get top 2 highest-paid employees in each department.
-👉 SELECT name, department, salary FROM (SELECT name, department, salary, RANK() OVER (PARTITION BY department ORDER BY salary DESC) 
-AS rnk FROM employees) AS ranked WHERE rnk <= 2;
