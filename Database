@@ -63,6 +63,7 @@ l. Add Unique Constraint   (ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (na
 **Conversion** (CAST()`, `CONVERT())
 
 
+
 SQL Question
 
 1. find all authors that viewed at least one of their own articles, id in Ascending order
@@ -172,3 +173,37 @@ FROM Register r GROUP BY r.contest_id ORDER BY percentage DESC, r.contest_id ASC
 30. 
 
 31. 
+
+Sub Query :-
+Q1. Find employees who earn more than the average salary of the company.
+SELECT name, salary FROM employees e WHERE salary > (SELECT AVG(salary) FROM employees);
+✔ Concept: Simple subquery in WHERE.
+
+Q2. Find employees who earn the maximum salary in their department.
+SELECT e.name, e.department, e.salary FROM employees e WHERE salary = (SELECT MAX(salary) FROM employees WHERE department=e.department);
+✔ Concept: Correlated subquery (depends on outer query).
+
+Q3. Find departments where at least one employee earns more than 1,00,000.
+SELECT DISTINCT department FROM employees e WHERE EXISTS (SELECT 1 FROM employees WHERE department = e.department AND salary > 100000);
+✔ Concept: EXISTS subquery.
+
+Q4. Find students who scored more than the average marks of their class.
+SELECT s1.name, s1.class, s1.marks FROM students s1 WHERE s1.marks > (SELECT AVG(s2.marks) FROM students s2 WHERE s2.class = s1.class);
+✔ Concept: Correlated subquery for group-wise comparison.
+
+Q5. Find employees whose salary is among the top 3 salaries in the company.
+SELECT DISTINCT salary FROM employees e1 WHERE 3 > (SELECT COUNT(DISTINCT salary) FROM employees e2 WHERE e2.salary > e1.salary);
+✔ Concept: Subquery with COUNT → classic “Nth highest salary” problem.
+
+Q6. Show students who scored the highest marks in each class (alternative).
+SELECT s.name, s.class, s.marks FROM students s JOIN (SELECT class, MAX(marks) AS max_marks FROM students GROUP BY class) t 
+ON s.class = t.class AND s.marks = t.max_marks;
+✔ Concept: Subquery in FROM (derived table).
+
+Q7. Find employees who do not belong to any department listed in the departments table.
+SELECT name FROM employees WHERE department NOT IN (SELECT dept_name FROM departments);
+✔ Concept: Subquery in NOT IN.
+
+Q8. Find the second highest salary using a subquery.
+SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);
+✔ Concept: Nested subquery.
