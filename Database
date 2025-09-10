@@ -210,3 +210,34 @@ SELECT name FROM employees WHERE department NOT IN (SELECT dept_name FROM depart
 Q8. Find the second highest salary using a subquery.
 SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);
 ✔ Concept: Nested subquery.
+
+
+Lead / Lag :-
+🔹 1. LAG()
+Fetches the previous row’s value in the result set.
+(salary change, stock price change)
+LAG(column, offset, default) OVER (PARTITION BY ... ORDER BY ...)
+
+column: column to look at
+offset: how many rows back (default = 1)
+default: value if no previous row exists
+
+Example: Find each employee’s salary compared to the previous one in the same department.
+SELECT name, department, salary, LAG(salary, 1, 0) OVER (PARTITION BY department ORDER BY salary) AS prev_salary FROM employees;
+
+🔹 2. LEAD()
+Fetches the next row’s value in the result set.
+LEAD(column, offset, default) OVER (PARTITION BY ... ORDER BY ...)
+ (predict upcoming value, next exam score)
+
+Example: Show each student’s marks along with the next student’s marks in the same class.
+SELECT name, class, marks, LEAD(marks, 1, -1) OVER (PARTITION BY class ORDER BY marks) AS next_marks FROM students;
+ row (salary change, stock price change).
+
+🔹 4. Example with Both
+SELECT month, revenue,
+       LAG(revenue)  OVER (ORDER BY month) AS prev_revenue,
+       LEAD(revenue) OVER (ORDER BY month) AS next_revenue,
+       revenue - LAG(revenue)  OVER (ORDER BY month) AS diff_from_prev,
+       LEAD(revenue) OVER (ORDER BY month) - revenue AS diff_from_next
+FROM sales;
