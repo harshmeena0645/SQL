@@ -20,8 +20,7 @@ a. Insert data ( Insert into s1 (id,age,name,dob,yn,rating) values(1,12,’h’,
 b. Show all table (Show tables;)
 
 c. Rename table  (RENAME TABLE s1 TO s2;)
-              //ALTER TABLE s1 RENAME TO s2;Delete table  (Drop table if exists s1;)
-
+              //ALTER TABLE s1 RENAME TO s2;
 d. Delete table  (Drop table if exists s1;)
 
 e. Rename Column  (ALTER TABLE s1 CHANGE COLUMN salary sal int;)
