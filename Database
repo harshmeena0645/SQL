@@ -41,8 +41,6 @@ d. Drop Column   (ALTER TABLE s1 DROP COLUMN salary;)
 
 e. Remove all data   (TRUNCATE TABLE s1; )  // DELETE FROM a5;
 
-f. Conditional Update   (UPDATE s1 SET yn=TRUE WHERE age > 20;)
-
 g. Copy Table   (CREATE TABLE s1 copy AS select * from s1;)
 
 h. Top N row   (select * from s1 limit 5;)
