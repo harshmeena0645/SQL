@@ -1,66 +1,3 @@
-Database
-
-1. Create database s;
-a. Show databases;
-b. Use database  (Use s;)
-c. Rename databases- CREATE DATABASE n;
-               RENAME TABLE s.s1 TO n.n1;
-d. DROP database if exists s;
-
-
-2. CREATE TABLE s1 (id INT PRIMARY KEY,
-age INT NOT NULL,
-name VARCHAR(10) DEFAULT 'modi',
-dob DATETIME DEFAULT CURRENT_TIMESTAMP,
-yn BOOLEAN DEFAULT 0,
-rating FLOAT DEFAULT 9.9);
-
-a. Insert data ( Insert into s1 (id,age,name,dob,yn,rating) values(1,12,’h’,’2004-03-03’,1,8.9),(),() )
-
-b. Show all table (Show tables;)
-
-c. Rename table  (RENAME TABLE s1 TO s2;)
-              //ALTER TABLE s1 RENAME TO s2;
-d. Delete table  (Drop table if exists s1;)
-
-e. Rename Column  (ALTER TABLE s1 CHANGE COLUMN salary sal int;)
-
-f. Get Table Structure  (desc s1;)  // DESCRIBE s1;
-
-g. Count Row   (SELECT COUNT(*) AS total_rows FROM a5;)
-
-
-3. Operations on Table data - 
-a. Delete one row  (DELETE FROM s1 WHERE id=5;)
-
-b. Update value   (UPDATE s1 SET name = ‘c’, age=8 WHERE id=0;)
-
-c. Add Column   (ALTER TABLE s1 add COLUMN id int after age;)
-
-d. Drop Column   (ALTER TABLE s1 DROP COLUMN salary;)
-
-e. Remove all data   (TRUNCATE TABLE s1; )  // DELETE FROM a5;
-
-g. Copy Table   (CREATE TABLE s1 copy AS select * from s1;)
-
-h. Top N row   (select * from s1 limit 5;)
-
-i. Duplicate row   (select name, COUNT(*) from s1 GROUP BY name HAVING COUNT(*) > 1;)
-
-j. Find NULL values   (SELECT * FROM s1 WHERE name IS NULL;)
-
-k. Row Matching Pattern   SELECT * FROM a5 WHERE name LIKE 'A%'; / ('_A%')
-
-l. Add Unique Constraint   (ALTER TABLE a5 ADD CONSTRAINT unique_name UNIQUE (name);)
-
-🔹 SQL Functions
-**Aggregate** (`SUM()`, `AVG()`, `COUNT()`)
-**String**     (`LEN()`, `UPPER()`, LOWER())
-**Date/Time**  (GETDATE(), DATEPART())
-**Conversion** (CAST()`, `CONVERT())
-
-
-
 SQL Question
 
 1. find all authors that viewed at least one of their own articles, id in Ascending order
@@ -70,7 +7,7 @@ SQL Question
 👉 Select tweet_id from Tweets where length(content)>15
 
 3. show unique ID of each user, If user not have unique ID replace just show null.
-👉 Select unique_id, name from Employees left Join EmployeeUNI  on Employees.id =  EmployeeUNI.id
+👉 Select unique_id, name from Employees left Join EmployeeUNI  on Employees.id = EmployeeUNI.id
 
 4. names of the customer that are either: referred by any customer with id != 2, not referred by any customer.
 👉 Select name from Customer where referee_id is null OR referee_id <> 2
