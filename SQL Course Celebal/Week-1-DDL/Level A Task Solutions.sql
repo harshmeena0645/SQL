@@ -12,6 +12,15 @@ WHERE c.CustomerID NOT IN (
 );
 
 
+SELECT c.CustomerID, p.FirstName
+FROM Sales.Customer AS c
+JOIN Person AS p 
+  ON p.BusinessEntityID = c.PersonID
+LEFT JOIN Sales.SalesOrderHeader AS o 
+  ON c.CustomerID = o.CustomerID
+WHERE o.CustomerID IS NULL;
+
+
 
 -- 11. Details of the first order in the system (by date)
 SELECT TOP 1 *
@@ -241,6 +250,7 @@ SELECT TOP 10 CustomerID, SUM(TotalDue) AS TotalSpent
 FROM Sales.SalesOrderHeader
 GROUP BY CustomerID
 ORDER BY TotalSpent DESC;
+
 
 
 
